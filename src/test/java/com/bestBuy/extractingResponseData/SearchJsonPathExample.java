@@ -118,15 +118,111 @@ public class SearchJsonPathExample {
                 System.out.println(service);
             }
     }
-   /* //10.Get storeservices of the store where service name = Windows Store
+    //10.Get storeservices of the store where service name = Windows Store
      @Test
     public void test010(){
 
-         //HashMap<String,Object> services=new HashMap<>();
-         List<Map<String,Object>> services;
-         services =response.extract().path("data.services.findAll{it.name=='Windows Store'}.storeservices");
+// notgiving any data
+// List<HashMap<String, Object>> services = response.extract().path("data.services[7].storeservices");
+         List<List<HashMap<String, Object>>> services = response.extract().path("data.services.findAll{it.name=='Windows Store'}");
          System.out.println("Services stores are : "+services);
-     }*/
+
+     }
+
+  /* @Test
+   public void test010(){
+
+       List<Object> storeservices=new ArrayList<>();
+       storeservices =response.extract().path("data.findAll{it.services.name=='Windows Store'}.storeservices");
+       System.out.println("Services stores are : "+storeservices);
+
+   }*/
+
+    //11) Get all the storeId of all the store
+    @Test
+    public void test011(){
+
+        List<Integer> idList=new ArrayList<>();
+        idList=response.extract().path("data.services.storeservices.storeId");
+        System.out.println("All Store id : "+idList);
+
+    }
+
+    //12) Get id of all the store
+    @Test
+    public void test012(){
+
+        List<Integer> idList=new ArrayList<>();
+        idList=response.extract().path("data.id");
+        System.out.println("All Store id : "+idList);
+    }
+
+    //13) Find the store names Where state = ND
+    @Test
+    public void test013(){
+
+        List<Integer> stores= response.extract().path("data.findAll{it.state=='ND'}.name");
+        System.out.println("Store names : "+stores);
+    }
+
+    //14.Find the Total number of services for the store where store name = Rochester
+    @Test
+    public void test014(){
+        List<HashMap<String,Object>> services =response.extract().path("data.findAll{it.name=='Rochester'}.services");
+        int size=services.size();
+        System.out.println(services);
+        System.out.println("Total no of Services for Rochester are : "+size);
+
+    }
+
+    //15) Find the createdAt for all services whose name = “Windows Store”
+    @Test
+    public void test015(){
+
+        List<String> created =response.extract().path("data.findAll{it.services.name=='Windows Store'}.services.created");
+        System.out.println("Created for Windows Store : "+created);
+    }
+
+    //16.Find the name of all services Where store name = “Fargo”
+    @Test
+    public void test016(){
+        List<String> servicesName =response.extract().path("data.findAll{it.name=='Fargo'}.services.name");
+        System.out.println("Services name are : "+servicesName);
+
+    }
+
+    //17.Find the zip of all the store
+    @Test
+    public void test017(){
+
+        List<String> zipList=response.extract().path("data.zip");
+        System.out.println("Zip of all stores are : "+zipList);
+    }
+
+    //18.Find the zip of store name = Roseville
+    @Test
+    public void test018(){
+
+        List<String> zip=response.extract().path("data.findAll{it.name=='Roseville'}.zip");
+        System.out.println("Zip of Roseville : "+zip);
+    }
+
+  /*  //19.Find the storeservices details of the service name = Magnolia Home Theater
+    @Test
+    public void test019(){
+
+        HashMap<String,Object> created =response.extract().path("data.findAll{it.services.name=='Magnolia Home Theater'}.storeservices");
+        System.out.println("Created for Magnolia Home Theater : "+created);
+
+    }*/
+
+    //20.Find the lat of all the stores
+    @Test
+    public void test020(){
+
+        List<Double> latList=response.extract().path("data.lat");
+        System.out.println("Lat of all the stores : "+latList);
+    }
 
 }
 

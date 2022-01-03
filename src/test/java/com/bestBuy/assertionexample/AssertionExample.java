@@ -46,11 +46,11 @@ public class AssertionExample {
         response.body("data.name",hasItem("Inver Grove Heights"));
     }
 
-    //4. Check the multiple ‘Names’ in the ArrayList (Square83215, Southridge, Green Bay)
+    //4.Check the multiple ‘Names’ in the ArrayList (Square83215, Southridge, Green Bay)
     @Test
     public void test004(){
 
-        response.body("data.name",hasItems("Inver Grove Heights, Roseville, Burnsville, Maplewood, Northtown, string, Fargo, Rochester, Oakdale, West Des Moines"));
+        response.body("data.name",hasItems("Inver Grove Heights","Square83215", "Rochester"));// Northtown, string, Fargo, Rochester, Oakdale, West Des Moines"));
     }
 
     // 5. Verify the storied inside storeservices of the third store of second services
@@ -80,18 +80,22 @@ public class AssertionExample {
         response.body("data.findAll{it.id==15}",hasItem(hasEntry("name","Oakdale")));
     }
 
-    //9. Verify the storeId = 12 for the 6th store
+    //9. Verify the storeId = 11 for the 6th store
+
     @Test
     public void test009(){
 
-        response.body("data.findAll{it.id==7}",hasItem(hasEntry("services.storeservices.storeId",12)));
+      //  response.body("data.findAll{it.id==6}",hasItem(hasEntry("services.storeservices.storeId",11)));
+        response.body("data[5].services[1].storeservices",hasKey("storeId"));
     }
 
 
-    //10. Verify the serviceId = 14 for the 7th store
+    //10. Verify the serviceId = 4 for the 7th store
+
     @Test
     public void test010(){
-        response.body("data.findAll{it.id==8}",hasItem(hasEntry("services.storeservices.serviceId",14)));
+        //response.body("data.findAll{it.id==4}",hasItem(hasEntry("services.storeservices.serviceId",7)));
+        response.body("data[6].services[3].storeservices",hasKey("serviceId"));
 
     }
 
